@@ -11,5 +11,6 @@ WriteMakefile(
                      'Spreadsheet::WriteExcel' => 0.42,
                      'XML::Parser' => 0.01,
                      'IO::Scalar' => 0.01,
+                     'IO::File' => 0.01,
                     },
 );

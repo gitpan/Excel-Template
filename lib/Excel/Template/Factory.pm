@@ -17,6 +17,7 @@ BEGIN {
     'WORKSHEET' => 'Excel::Template::Container::Worksheet',
 
     'CELL'      => 'Excel::Template::Element::Cell',
+    'FORMULA'   => 'Excel::Template::Element::Formula',
     'VAR'       => 'Excel::Template::Element::Var',
 
     'FORMAT'    => 'Excel::Template::Container::Format',
@@ -43,9 +44,10 @@ BEGIN {
 );
 
 %isBuildable = map { $_ => 1 } qw(
-    CELL
     BOLD
+    CELL
     FORMAT
+    FORMULA
     IF
     ITALIC
     OUTLINE

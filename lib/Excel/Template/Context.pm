@@ -28,24 +28,24 @@ sub new
     $self->{ACTIVE_WORKSHEET} = undef;
     $self->{ACTIVE_FORMAT}    = Excel::Template::Format->blank_format($self);
 
-    $self->{PARAM_MAP} = [] unless UNIVERSAL::isa($self->{PARAM_MAP}, 'ARRAY');
-    $self->{STACK}     = [] unless UNIVERSAL::isa($self->{STACK},     'ARRAY');
+    UNIVERSAL::isa($self->{$_}, 'ARRAY') || ($self->{$_} = [])
+        for qw( STACK PARAM_MAP NAME_MAP );
 
     $self->{$_} = 0 for keys %isAbsolute;
 
     return $self;
 }
 
-sub param
+sub _find_param_in_map
 {
     my $self = shift;
-    my ($param, $depth) = @_;
+    my ($map, $param, $depth) = @_;
     $depth ||= 0;
 
     my $val = undef;
     my $found = 0;
 
-    for my $map (reverse @{$self->{PARAM_MAP}})
+    for my $map (reverse @{$self->{$map}})
     {
         next unless exists $map->{$param};
         $depth--, next if $depth;
@@ -61,6 +61,24 @@ sub param
     return $val;
 }
 
+sub param
+{
+    my $self = shift;
+    $self->_find_param_in_map(
+        'PARAM_MAP',
+        @_,
+    );
+}
+
+sub named_param
+{
+    my $self = shift;
+    $self->_find_param_in_map(
+        'NAME_MAP',
+        @_,
+    );
+}
+
 sub resolve
 {
     my $self = shift;
@@ -71,7 +89,11 @@ sub resolve
     my $obj_val = $obj->{$key};
 
     $obj_val = $self->param($1)
-        if $obj->{$key} =~ /^\$(\S+)$/o;
+        if $obj_val =~ /^\$(\S+)$/o;
+
+#GGG Remove this once NAME_MAP is working
+#    $obj_val = $self->named_param($1)
+#        if $obj_val =~ /^\\(\S+)$/o;
 
 #GGG Does this adequately test values to make sure they're legal??
     # A value is defined as:

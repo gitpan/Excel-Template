@@ -105,7 +105,7 @@ There will be more parameters added, as features are added.
 
 =head1 CHILDREN
 
-None
+Excel::Template::Element::Formula
 
 =head1 EFFECTS
 
@@ -117,11 +117,11 @@ None
 
 =head1 USAGE
 
-<cell text="Some Text Here"/>
-<cell>Some other text here</cell>
+  <cell text="Some Text Here"/>
+  <cell>Some other text here</cell>
 
-<cell text="$Param2"/>
-<cell>Some <var name="Param"> text here</cell>
+  <cell text="$Param2"/>
+  <cell>Some <var name="Param"> text here</cell>
 
 In the above example, four cells are written out. The first two have text hard-
 coded. The second two have variables. The third and fourth items have another
@@ -129,12 +129,19 @@ thing that should be noted. If you have text where you want a variable in the
 middle, you have to use the latter form. Variables within parameters are the
 entire parameter's value.
 
+Please see Spreadsheet::WriteExcel for what constitutes a legal formula.
+
+=head1 BACK-REFERENCES
+
+Currently, you can only use a hard-coded formula. The next release will add the
+capability to have a formula reference other nodes in the template dynamically.
+
 =head1 AUTHOR
 
 Rob Kinyon (rkinyon@columbus.rr.com)
 
 =head1 SEE ALSO
 
-ROW, VAR
+ROW, VAR, FORMULA
 
 =cut

@@ -155,11 +155,9 @@ None
 
 =head1 USAGE
 
-<loop name="LOOPY">
-
+  <loop name="LOOPY">
     ... Children here ...
-
-</loop>
+  </loop>
 
 In the above example, the children nodes would have access to the LOOPY array
 of hashes as parameters. Each iteration through the array would expose a

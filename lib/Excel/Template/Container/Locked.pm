@@ -28,7 +28,7 @@ Excel::Template::Container::Locked - Excel::Template::Container::Locked
 
 =head1 PURPOSE
 
-To format all children in bold
+To format all children in locked
 
 =head1 NODE NAME
 
@@ -56,15 +56,13 @@ None
 
 =head1 USAGE
 
-<bold>
-
+  <locked>
     ... Children here
-
-</bold>
+  </locked>
 
 In the above example, the children will be displayed (if they are displaying
-elements) in a bold format. All other formatting will remain the same and the
-"bold"-ness will end at the end tag.
+elements) in a locked format. All other formatting will remain the same and the
+"locked"-ness will end at the end tag.
 
 =head1 AUTHOR
 

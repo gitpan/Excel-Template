@@ -47,11 +47,9 @@ None
 
 =head1 USAGE
 
-<workbook>
-
+  <workbook>
     ... Children here
-
-</workbook>
+  </workbook>
 
 =head1 AUTHOR
 

@@ -56,11 +56,9 @@ None
 
 =head1 USAGE
 
-<italic>
-
+  <italic>
     ... Children here
-
-</italic>
+  </italic>
 
 In the above example, the children will be displayed (if they are displaying
 elements) in a italic format. All other formatting will remain the same and the

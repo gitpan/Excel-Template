@@ -171,11 +171,9 @@ None
 
 =head1 USAGE
 
-<if name="__ODD__" is="false">
-
+  <if name="__ODD__" is="false">
     ... Children here
-
-</if>
+  </if>
 
 In the above example, the children will be executed if the value of __ODD__
 (which is set by the LOOP node) is false. So, for all even iterations.

@@ -28,7 +28,7 @@ Excel::Template::Container::Hidden - Excel::Template::Container::Hidden
 
 =head1 PURPOSE
 
-To format all children in bold
+To format all children in hidden
 
 =head1 NODE NAME
 
@@ -56,15 +56,13 @@ None
 
 =head1 USAGE
 
-<bold>
-
+  <hidden>
     ... Children here
-
-</bold>
+  </hidden>
 
 In the above example, the children will be displayed (if they are displaying
-elements) in a bold format. All other formatting will remain the same and the
-"bold"-ness will end at the end tag.
+elements) in a hidden format. All other formatting will remain the same and the
+"hidden"-ness will end at the end tag.
 
 =head1 AUTHOR
 

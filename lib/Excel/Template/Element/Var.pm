@@ -58,11 +58,9 @@ This is used exactly like HTML::Template's TMPL_VAR. There is one exception -
 since you can have variable names inside the parameters, you can do something
 like:
 
-<loop name="LOOPY">
-
+  <loop name="LOOPY">
     <var name="$SomeParam"/>
-
-</loop>
+  </loop>
 
 Where the actual name to be substituted is, itself, a parameter.
 

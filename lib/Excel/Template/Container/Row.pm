@@ -64,13 +64,11 @@ None
 
 =head1 USAGE
 
-<row>
-
+  <row>
     ... Children here
+  </row>
 
-</row>
-
-Generally, you will have CELL tags within a ROW.
+Generally, you will have CELL and/or FORMULA tags within a ROW.
 
 =head1 AUTHOR
 
@@ -78,6 +76,6 @@ Rob Kinyon (rkinyon@columbus.rr.com)
 
 =head1 SEE ALSO
 
-CELL
+CELL, FORMULA
 
 =cut

@@ -1,11 +1,15 @@
 Revision history for Perl module Excel::Template
 
+0.06 Mon Jan 20 11:00:00 2004
+	- Added formulas (no back-references yet)
+        - Improved POD a little
+
 0.05 Wed Jan 16 12:30:00 2004
 	- Fixed a bug in formats
 
 0.04 Wed Jan 16 12:00:00 2004
 	- Added BIG_FILES as an option, which will use
-          Spreadsheet::WriteExcel::Big as the renderer
+          Spreadsheet::WriteExcel::Big as the renderer (yet unimplemented)
         - Changed the output() method to use a tied IO::Scalar (which is
           now a requirement.
 	- Firmed up the infrastructure in Excel::Template::Format

@@ -56,11 +56,9 @@ None
 
 =head1 USAGE
 
-<bold>
-
+  <bold>
     ... Children here
-
-</bold>
+  </bold>
 
 In the above example, the children will be displayed (if they are displaying
 elements) in a bold format. All other formatting will remain the same and the

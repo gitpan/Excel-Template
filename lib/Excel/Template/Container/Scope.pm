@@ -49,11 +49,9 @@ None
 
 =head1 USAGE
 
-<scope param1="value1" param2="value2">
-
+  <scope param1="value1" param2="value2">
     ... Children here ...
-
-</scope>
+  </scope>
 
 In the above example, the children would all have access to the parameters
 param1 and param2. This is useful if you have a section of your template that

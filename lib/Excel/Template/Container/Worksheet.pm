@@ -66,11 +66,9 @@ None
 
 =head1 USAGE
 
-<worksheet name="My Taxes">
-
+  <worksheet name="My Taxes">
     ... Children here
-
-</worksheet>
+  </worksheet>
 
 In the above example, the children will be executed in the context of the
 "My Taxes" worksheet.
@@ -81,6 +79,6 @@ Rob Kinyon (rkinyon@columbus.rr.com)
 
 =head1 SEE ALSO
 
-ROW, CELL
+ROW, CELL, FORMULA
 
 =cut

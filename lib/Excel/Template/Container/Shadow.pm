@@ -28,7 +28,7 @@ Excel::Template::Container::Shadow - Excel::Template::Container::Shadow
 
 =head1 PURPOSE
 
-To format all children in bold
+To format all children in shadow
 
 =head1 NODE NAME
 
@@ -56,15 +56,13 @@ None
 
 =head1 USAGE
 
-<bold>
-
+  <shadow>
     ... Children here
-
-</bold>
+  </shadow>
 
 In the above example, the children will be displayed (if they are displaying
-elements) in a bold format. All other formatting will remain the same and the
-"bold"-ness will end at the end tag.
+elements) in a shadow format. All other formatting will remain the same and the
+"shadow"-ness will end at the end tag.
 
 =head1 AUTHOR
 

@@ -6,11 +6,12 @@ BEGIN {
     use Excel::Template::Base;
     use vars qw ($VERSION @ISA);
 
-    $VERSION  = 0.05;
+    $VERSION  = 0.06;
     @ISA      = qw( Excel::Template::Base );
 }
 
 use XML::Parser;
+use IO::File;
 use IO::Scalar;
 
 sub new
@@ -314,7 +315,11 @@ values that the next CELL tag will write into.
 
 =item * CELL
 
+=item * FORMULA
+
 =item * BOLD
+
+=item * ITALIC
 
 =back 4
 
