@@ -1,16 +1,11 @@
-pod2text Excel::Template.pm > README
+Excel::Template is a layout system to use the data structure from HTML::Template
+and create a Microsoft Excel file. A few caveats:
+1) All limitations stated in Spreadsheet::WriteExcel are in force, as that is
+   the module used for rendering.
+2) The output() method is not extremely well-tested.
+3) Not all the methods have been tested in all situations. I fully expect bugs
+   to come back and have to be fixed.
 
-If this is still here it means the programmer was too lazy to create the readme file.
+Barring all of that, and a slight lack of features, it's a good module. Enjoy!
 
-You can create it now by using the command shown above from this directory.
-
-At the very least you should be able to use this set of instructions
-to install the module...
-
-perl Makefile.PL
-make
-make test
-make install
-
-
-If you are on a windows box you should use 'nmake' rather than 'make'.
+Rob

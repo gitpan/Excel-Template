@@ -34,7 +34,7 @@ sub new
     $self->{PARAM_MAP} = [] unless UNIVERSAL::isa($self->{PARAM_MAP}, 'ARRAY');
     $self->{STACK}     = [] unless UNIVERSAL::isa($self->{STACK},     'ARRAY');
 
-    $self->{ROW} = $self->{COL} = 0;
+    $self->{$_} = 0 for keys %isAbsolute;
 
     return $self;
 }
@@ -87,7 +87,7 @@ sub resolve
     # Unless it's a relative value, we have what we came for.
     return $obj_val unless $op;
 
-    my $prev_val = $key eq 'COL' || $key eq 'ROW'
+    my $prev_val = $isAbsolute{$key}
         ? $self->{$key}
         : $self->get($obj, $key, $depth + 1);
 

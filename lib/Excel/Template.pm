@@ -6,7 +6,7 @@ BEGIN {
     use Excel::Template::Base;
     use vars qw ($VERSION @ISA);
 
-    $VERSION  = 0.01;
+    $VERSION  = 0.02;
     @ISA      = qw (Excel::Template::Base);
 }
 
@@ -58,41 +58,8 @@ sub output
 {
     my $self = shift;
 
-    # mod_perl 2.x
-    if ( $ENV{MOD_PERL} && 0)
-    {
-        eval {
-            require Apache::IO;
-            Apache::IO->import;
-        }; if ($@) {
-            die "Cannot figure out what to do under Apache!\n";
-        }
-
-        tie *XLS, 'Apache::IO';
-        binmode *XLS;
-        return $self->write_file(\*XLS);
-    }
-    # mod_perl 1.x (or CGI under mod_perl 2.x)
-    elsif ( $ENV{GATEWAY_INTERFACE} && 0)
-    {
-        my $module_name;
-        eval {
-           require Apache;
-           Apache->import;
-           $module_name = 'Apache';
-        }; if ($@) {
-            die "Cannot figure out what to do under Apache!\n";
-        }
-
-        tie *XLS, $module_name;
-        binmode *XLS;
-        return $self->write_file(\*XLS);
-    }
-    # CGI (or non-WWW) behavior
-    else
-    {
-        $self->write_file('-');
-    }
+    binmode STDOUT;
+    $self->write_file(\*STDOUT);
 }
 
 sub parse
@@ -203,26 +170,65 @@ Excel::Template - Excel::Template
 
 =head1 SYNOPSIS
 
+First, make a template. This is an XML file, describing the layout of the
+spreadsheet.
+
+For example, test.xml:
+
+  <workbook>
+      <worksheet name="tester">
+          <cell text="$HOME"/>
+          <cell text="$PATH"/>
+      </worksheet>
+  </workbook>
+
+Now, create a small program to use it:
+
+  #!/usr/bin/perl -w
   use Excel::Template
 
+  # Create the Excel template
   my $template = Excel::Template->new(
-      filename => 'template.xml',
+      filename => 'test.xml',
   );
 
-  $template->param(%some_params);
+  # Add a few parameters
+  $template->param(
+      HOME => $ENV{HOME},
+      PATH => $ENV{PATH},
+  );
 
-  $template->write_file('output.xls');
+  $template->write_file('test.xls');
 
+If everything worked, then you should have a spreadsheet in your work directory
+that looks something like:
+
+             A                B                C
+    +----------------+----------------+----------------
+  1 | /home/me       | /bin:/usr/bin  |
+    +----------------+----------------+----------------
+  2 |                |                |
+    +----------------+----------------+----------------
+  3 |                |                |
 
 =head1 DESCRIPTION
 
 This is a module used for templating Excel files. Its genesis came from the
 need to use the same datastructure as HTML::Template, but provide Excel files
-instead. The existing modules don't do the trick, as they require separate
-logic from what HTML::Template needs.
+instead. The existing modules don't do the trick, as they require replication
+of logic that's already been done within HTML::Template.
 
 Currently, only a small subset of the planned features are supported. This is
 meant to be a test of the waters, to see what features people actually want.
+
+=head1 MOTIVATION
+
+I do a lot of Perl/CGI for reporting purposes. In nearly every place I've been,
+I've been asked for HTML, PDF, and Excel. HTML::Template provides the first, and
+PDF::Template does the second pretty well. But, generating Excel was the
+sticking point. I already had the data structure for the other templating
+modules, but I just didn't have an easy mechanism to get that data structure
+into an XLS file.
 
 =head1 USAGE
 
@@ -234,29 +240,26 @@ described below.)
 
 =head2 param()
 
-This method is exactly like HTML::Template's param() method. Although, I will
+This method is exactly like HTML::Template's param() method. Although I will
 be adding more to this section later, please see HTML::Template's description
 for info right now.
 
 =head2 parse() / parse_xml()
 
 This method actually parses the template file. It can either be called
-separately or through the new() call. It will die() if it cannot handle any
-situation.
+separately or through the new() call. It will die() if it runs into a situation
+it cannot handle.
 
 =head2 write_file()
 
-Create the Excel file and write it to the specified filename. This is when the
-actual merging of the template and the parameters occurs.
+Create the Excel file and write it to the specified filename, if possible. (This
+is when the actual merging of the template and the parameters occurs.)
 
 =head2 output()
 
 It will act just like HTML::Template's output() method, returning the resultant
-file as a stream, usually for output to the web.
-
-NOTE: This method binmode()'s STDOUT and passes a reference to the glob to
-write_file(). This has been tested using CGI, but not mod_perl 1 or mod_perl 2.
-If you test it under those environments, please let me know.
+file as a stream, usually for output to the web. (This is when the actual
+merging of the template and the parameters occurs.)
 
 =head1 SUPPORTED NODES
 
@@ -272,6 +275,8 @@ values that the next CELL tag will write into.
 
 =item * WORKSHEET
 
+=item * IF
+
 =item * LOOP
 
 =item * ROW
@@ -280,21 +285,16 @@ values that the next CELL tag will write into.
 
 =item * BOLD
 
-=item * IF
-
 =back 4
 
 =head1 BUGS
 
-None, that I know of. (But there aren't many features, neither!)
+None, that I know of.
 
 =head1 SUPPORT
 
 This is currently beta-quality software. The featureset is extremely limited,
 but I expect to be adding on to it very soon.
-
-If you have any suggestions, comments, or the like, please let me know. I'd
-also appeciate anyone coming up with a good testing strategy!
 
 =head1 AUTHOR
 
@@ -311,6 +311,6 @@ LICENSE file included with this module.
 
 =head1 SEE ALSO
 
-perl(1), HTML::Template, PDF::Template.
+perl(1), HTML::Template, Spreadsheet::WriteExcel.
 
 =cut
