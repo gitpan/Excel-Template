@@ -1,6 +1,12 @@
 Revision history for Perl module Excel::Template
 
-0.02 Tue Nov 30 17:00:00 2003
+0.02 Wed Dec 03 20:30:00 2003
+	- Added XML::Parser as a required pre-requisite module
+	- Added Italic format
+	- Removed $VERSION from Graph::Template::Base (Unneeded)
+        - No documentation or testing changes
+
+0.02 Sun Nov 30 17:00:00 2003
 	- documentation improvements
 	- No actual functional changes
 

@@ -20,6 +20,7 @@ BEGIN {
     'VAR'       => 'Excel::Template::Element::Var',
 
     'BOLD'      => 'Excel::Template::Container::Bold',
+    'ITALIC'    => 'Excel::Template::Container::Italic',
 #    'FONT'      => 'Excel::Template::Container::Font',
 
 # These are the helper objects
@@ -49,6 +50,7 @@ while (my ($k, $v) = each %Manifest)
     CELL
     BOLD
     IF
+    ITALIC
     LOOP
     ROW
     VAR

@@ -9,5 +9,6 @@ WriteMakefile(
     PREREQ_PM    => {
                      'Test::Simple' => 0.44,
                      'Spreadsheet::WriteExcel' => 0.42,
+                     'XML::Parser' => 0.01,
                     },
 );

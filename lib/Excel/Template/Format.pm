@@ -12,7 +12,7 @@ use strict;
 my %_Parameters = do {
     my $i = 0;
     (map { $_ => $i++ } qw(
-        bold
+        bold italic
     ));
 };
 

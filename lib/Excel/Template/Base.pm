@@ -3,9 +3,6 @@ package Excel::Template::Base;
 use strict;
 
 BEGIN {
-    use vars qw ($VERSION);
-
-    $VERSION = 0.01;
 }
 
 use Excel::Template::Factory;

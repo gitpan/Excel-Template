@@ -1,4 +1,4 @@
-package Excel::Template::Container::Bold;
+package Excel::Template::Container::Italic;
 
 use strict;
 
@@ -20,7 +20,7 @@ sub render
     my $format = Excel::Template::Format->copy(
         $context, $old_format,
 
-        bold => 1,
+        italic => 1,
     );
     $context->active_format($format);
 
@@ -34,15 +34,15 @@ __END__
 
 =head1 NAME
 
-Excel::Template::Container::Bold - Excel::Template::Container::Bold
+Excel::Template::Container::Italic - Excel::Template::Container::Italic
 
 =head1 PURPOSE
 
-To format all children in bold
+To format all children in italic
 
 =head1 NODE NAME
 
-BOLD
+ITALIC
 
 =head1 INHERITANCE
 
@@ -66,15 +66,15 @@ None
 
 =head1 USAGE
 
-<bold>
+<italic>
 
     ... Children here
 
-</bold>
+</italic>
 
 In the above example, the children will be displayed (if they are displaying
-elements) in a bold format. All other formatting will remain the same and the
-"bold"-ness will end at the end tag.
+elements) in a italic format. All other formatting will remain the same and the
+"italic"-ness will end at the end tag.
 
 =head1 AUTHOR
 
@@ -82,6 +82,6 @@ Rob Kinyon (rkinyon@columbus.rr.com)
 
 =head1 SEE ALSO
 
-ITALIC
+BOLD
 
 =cut
