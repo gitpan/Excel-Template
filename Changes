@@ -1,5 +1,8 @@
 Revision history for Perl module Excel::Template
 
+0.07 Fri Jan 23 08:30:00 2004
+	- Fixed the MANIFEST to account for missing files
+
 0.06 Mon Jan 20 11:00:00 2004
 	- Added formulas (no back-references yet)
         - Improved POD a little

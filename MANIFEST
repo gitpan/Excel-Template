@@ -9,10 +9,12 @@ lib/Excel/Template/Container.pm
 lib/Excel/Template/Context.pm
 lib/Excel/Template/Element.pm
 lib/Excel/Template/Factory.pm
+lib/Excel/Template/Format.pm
 lib/Excel/Template/Iterator.pm
 lib/Excel/Template/TextObject.pm
 lib/Excel/Template/Container/Bold.pm
 lib/Excel/Template/Container/Conditional.pm
+lib/Excel/Template/Container/Format.pm
 lib/Excel/Template/Container/Hidden.pm
 lib/Excel/Template/Container/Italic.pm
 lib/Excel/Template/Container/Loop.pm
