@@ -25,9 +25,6 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new(@_);
 
-    die "Internal Error: No Excel handle passed in to context.\n"
-        unless UNIVERSAL::isa($self->{XLS}, 'Spreadsheet::WriteExcel');
-
     $self->{ACTIVE_WORKSHEET} = undef;
     $self->{ACTIVE_FORMAT}    = Excel::Template::Format->blank_format($self);
 

@@ -6,12 +6,12 @@ BEGIN {
     use Excel::Template::Base;
     use vars qw ($VERSION @ISA);
 
-    $VERSION  = 0.03;
-    @ISA      = qw (Excel::Template::Base);
+    $VERSION  = 0.04;
+    @ISA      = qw( Excel::Template::Base );
 }
 
 use XML::Parser;
-use Spreadsheet::WriteExcel;
+use IO::Scalar;
 
 sub new
 {
@@ -20,6 +20,33 @@ sub new
 
     $self->parse_xml($self->{FILENAME})
         if defined $self->{FILENAME};
+
+    my @renderer_classes = ( 'Spreadsheet::WriteExcel' );
+    if (exists $self->{BIG_FILE} && $self->{BIG_FILE})
+    {
+        unshift @renderer_classes, 'Spreadsheet::WriteExcel::Big';
+    }
+
+    $self->{RENDERER} = undef;
+    foreach my $class (@renderer_classes)
+    {
+        (my $filename = $class) =~ s!::!/!g;
+        eval {
+            require "$filename.pm";
+            $class->import;
+        };
+        if ($@) {
+            warn "Could not find or compile '$class'\n";
+        } else {
+            $self->{RENDERER} = $class;
+            last;
+        }
+    }
+
+    defined $self->{RENDERER} ||
+        die "Could not find a renderer class. Tried:\n\t" .
+            join("\n\t", @renderer_classes) .
+            "\n";
 
     return $self;
 }
@@ -44,7 +71,7 @@ sub write_file
     my $self = shift;
     my ($filename) = @_;
 
-    my $xls = Spreadsheet::WriteExcel->new($filename)
+    my $xls = $self->{RENDERER}->new($filename)
         || die "Cannot create XLS in '$filename': $!\n";
 
     $self->_prepare_output($xls);
@@ -58,8 +85,12 @@ sub output
 {
     my $self = shift;
 
-    binmode STDOUT;
-    $self->write_file(\*STDOUT);
+    my $output;
+    tie *XLS, 'IO::Scalar', \$output;
+
+    $self->write_file(\*XLS);
+
+    return $output;
 }
 
 sub parse

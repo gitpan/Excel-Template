@@ -19,9 +19,16 @@ BEGIN {
     'CELL'      => 'Excel::Template::Element::Cell',
     'VAR'       => 'Excel::Template::Element::Var',
 
+    'FORMAT'    => 'Excel::Template::Container::Format',
+
+# These are all the Format short-cut objects
     'BOLD'      => 'Excel::Template::Container::Bold',
+    'HIDDEN'    => 'Excel::Template::Container::Hidden',
     'ITALIC'    => 'Excel::Template::Container::Italic',
-#    'FONT'      => 'Excel::Template::Container::Font',
+    'LOCKED'    => 'Excel::Template::Container::Locked',
+    'OUTLINE'   => 'Excel::Template::Container::Outline',
+    'SHADOW'    => 'Excel::Template::Container::Shadow',
+    'STRIKEOUT' => 'Excel::Template::Container::Strikeout',
 
 # These are the helper objects
 
@@ -35,24 +42,17 @@ BEGIN {
     'BASE'       => 'Excel::Template::Base',
 );
 
-while (my ($k, $v) = each %Manifest)
-{
-    (my $n = $v) =~ s!::!/!g;
-    $n .= '.pm';
-
-    $Manifest{$k} = {
-        package  => $v,
-        filename => $n,
-    };
-}
-
 %isBuildable = map { $_ => 1 } qw(
     CELL
     BOLD
+    FORMAT
     IF
     ITALIC
+    OUTLINE
     LOOP
     ROW
+    SHADOW
+    STRIKEOUT
     VAR
     WORKBOOK
     WORKSHEET
@@ -104,14 +104,15 @@ sub create
 
     return unless exists $Manifest{$name};
 
+    (my $filename = $Manifest{$name}) =~ s!::!/!g;
+ 
     eval {
-        require $Manifest{$name}{filename};
+        require "$filename.pm";
     }; if ($@) {
-        print "$@\n";
-        die "Cannot find PM file for '$name' ($Manifest{$name}{filename})\n";
+        die "Cannot find or compile PM file for '$name' ($filename)\n";
     }
-
-    return $Manifest{$name}{package}->new(@_);
+ 
+    return $Manifest{$name}->new(@_);
 }
 
 sub create_node
@@ -128,7 +129,7 @@ sub isa
 {
     return unless @_ >= 2;
     exists $Manifest{uc $_[1]}
-        ? UNIVERSAL::isa($_[0], $Manifest{uc $_[1]}{package})
+        ? UNIVERSAL::isa($_[0], $Manifest{uc $_[1]})
         : UNIVERSAL::isa(@_)
 }
 

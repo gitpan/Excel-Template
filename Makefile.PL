@@ -10,5 +10,6 @@ WriteMakefile(
                      'Test::Simple' => 0.44,
                      'Spreadsheet::WriteExcel' => 0.42,
                      'XML::Parser' => 0.01,
+                     'IO::Scalar' => 0.01,
                     },
 );

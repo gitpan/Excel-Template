@@ -1,4 +1,4 @@
-package Excel::Template::Container::Italic;
+package Excel::Template::Container::Outline;
 
 use strict;
 
@@ -14,7 +14,7 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new(@_);
 
-    $self->{ITALIC} = 1;
+    $self->{FONT_OUTLINE} = 1;
 
     return $self;
 }
@@ -24,15 +24,15 @@ __END__
 
 =head1 NAME
 
-Excel::Template::Container::Italic - Excel::Template::Container::Italic
+Excel::Template::Container::Outline - Excel::Template::Container::Outline
 
 =head1 PURPOSE
 
-To format all children in italic
+To format all children in bold
 
 =head1 NODE NAME
 
-ITALIC
+OUTLINE
 
 =head1 INHERITANCE
 
@@ -56,15 +56,15 @@ None
 
 =head1 USAGE
 
-<italic>
+<bold>
 
     ... Children here
 
-</italic>
+</bold>
 
 In the above example, the children will be displayed (if they are displaying
-elements) in a italic format. All other formatting will remain the same and the
-"italic"-ness will end at the end tag.
+elements) in a bold format. All other formatting will remain the same and the
+"bold"-ness will end at the end tag.
 
 =head1 AUTHOR
 

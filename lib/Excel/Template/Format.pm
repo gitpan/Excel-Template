@@ -9,49 +9,58 @@ use strict;
 # places in the file. This provides a way of keeping track of already-allocated
 # formats and making new formats based on old ones.
 
-my %_Parameters = do {
-    my $i = 0;
-    (map { $_ => $i++ } qw(
-        bold italic
-    ));
-};
-
-sub _params_to_vec
 {
-    my %params = @_;
+    # %_Parameters is a hash with the key being the format name and the value
+    # being the index/length of the format in the bit-vector.
+    my %_Parameters = (
+        bold   => [ 0, 1 ],
+        italic => [ 1, 1 ],
+        locked => [ 2, 1 ],
+        hidden => [ 3, 1 ],
+        font_outline   => [ 4, 1 ],
+        font_shadow    => [ 5, 1 ],
+        font_strikeout => [ 6, 1 ],
+    );
 
-    my $vec = '';
-
-    vec($vec, $_Parameters{$_}, 1) = 1
-        for grep { exists $_Parameters{$_} }
-            map { lc } keys %params;
-
-    $vec;
-}
-
-sub _vec_to_params
-{
-    my ($vec) = @_;
-
-    my %params;
-    while (my ($k, $v) = each %_Parameters)
+    sub _params_to_vec
     {
-        next unless vec($vec, $v, 1);
-        $params{$k} = 1;
+        my %params = @_;
+
+        my $vec = '';
+
+        vec( $vec, $_Parameters{$_}[0], $_Parameters{$_}[1] ) = $params{$_} && 1
+            for grep { exists $_Parameters{$_} }
+                map { lc } keys %params;
+
+        $vec;
     }
 
-    %params;
+    sub _vec_to_params
+    {
+        my ($vec) = @_;
+
+        my %params;
+        while (my ($k, $v) = each %_Parameters)
+        {
+            next unless vec( $vec, $v->[0], $v->[1] );
+            $params{$k} = 1;
+        }
+
+        %params;
+    }
 }
 
-my %_Formats;
+{
+    my %_Formats;
 
-sub _assign {
-    $_Formats{$_[0]} = $_[1] unless exists $_Formats{$_[0]};
-    $_Formats{$_[1]} = $_[0] unless exists $_Formats{$_[1]};
+    sub _assign {
+        $_Formats{$_[0]} = $_[1] unless exists $_Formats{$_[0]};
+        $_Formats{$_[1]} = $_[0] unless exists $_Formats{$_[1]};
+    }
+
+    sub _retrieve_vec    { ref($_[0]) ? ($_Formats{$_[0]}) : ($_[0]); }
+    sub _retrieve_format { ref($_[0]) ? ($_[0]) : ($_Formats{$_[0]}); }
 }
-
-sub _retrieve_vec    { ref($_[0]) ? ($_Formats{$_[0]}) : ($_[0]); }
-sub _retrieve_format { ref($_[0]) ? ($_[0]) : ($_Formats{$_[0]}); }
 
 sub blank_format
 {
@@ -91,3 +100,42 @@ sub copy
 1;
 __END__
 
+Category   Description       Property        Method Name          Implemented
+--------   -----------       --------        -----------          -----------
+Font       Font type         font            set_font()
+           Font size         size            set_size()
+           Font color        color           set_color()
+           Bold              bold            set_bold()              YES
+           Italic            italic          set_italic()            YES
+           Underline         underline       set_underline()
+           Strikeout         font_strikeout  set_font_strikeout()    YES
+           Super/Subscript   font_script     set_font_script()
+           Outline           font_outline    set_font_outline()      YES
+           Shadow            font_shadow     set_font_shadow()       YES
+
+Number     Numeric format    num_format      set_num_format()
+
+Protection Lock cells        locked          set_locked()            YES
+           Hide formulas     hidden          set_hidden()            YES
+
+Alignment  Horizontal align  align           set_align()
+           Vertical align    valign          set_align()
+           Rotation          rotation        set_rotation()
+           Text wrap         text_wrap       set_text_wrap()
+           Justify last      text_justlast   set_text_justlast()
+           Merge             merge           set_merge()
+
+Pattern    Cell pattern      pattern         set_pattern()
+           Background color  bg_color        set_bg_color()
+           Foreground color  fg_color        set_fg_color()
+
+Border     Cell border       border          set_border()
+           Bottom border     bottom          set_bottom()
+           Top border        top             set_top()
+           Left border       left            set_left()
+           Right border      right           set_right()
+           Border color      border_color    set_border_color()
+           Bottom color      bottom_color    set_bottom_color()
+           Top color         top_color       set_top_color()
+           Left color        left_color      set_left_color()
+           Right color       right_color     set_right_color()

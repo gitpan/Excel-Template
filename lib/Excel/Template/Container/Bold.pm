@@ -4,29 +4,19 @@ use strict;
 
 BEGIN {
     use vars qw(@ISA);
-    @ISA = qw( Excel::Template::Container );
+    @ISA = qw( Excel::Template::Container::Format );
 
-    use Excel::Template::Container;
+    use Excel::Template::Container::Format;
 }
 
-use Excel::Template::Format;
-
-sub render
+sub new
 {
-    my $self = shift;
-    my ($context) = @_;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
 
-    my $old_format = $context->active_format;
-    my $format = Excel::Template::Format->copy(
-        $context, $old_format,
+    $self->{BOLD} = 1;
 
-        bold => 1,
-    );
-    $context->active_format($format);
-
-    my $child_success = $self->iterate_over_children($context);
-
-    $context->active_format($old_format);
+    return $self;
 }
 
 1;
@@ -46,7 +36,7 @@ BOLD
 
 =head1 INHERITANCE
 
-Excel::Template::Container
+Excel::Template::Container::Format
 
 =head1 ATTRIBUTES
 
@@ -82,6 +72,6 @@ Rob Kinyon (rkinyon@columbus.rr.com)
 
 =head1 SEE ALSO
 
-ITALIC
+FORMAT
 
 =cut

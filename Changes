@@ -1,9 +1,23 @@
 Revision history for Perl module Excel::Template
 
-0.02 Wed Dec 03 20:30:00 2003
+0.04 Wed Jan 06 12:00:00 2004
+	- Added BIG_FILES as an option, which will use
+          Spreadsheet::WriteExcel::Big as the renderer
+        - Changed the output() method to use a tied IO::Scalar (which is
+          now a requirement.
+	- Firmed up the infrastructure in Excel::Template::Format
+        - Added the following tags
+            - FORMAT
+            - HIDDEN
+            - LOCKED
+            - OUTLINE
+            - SHADOW
+            - STRIKEOUT
+
+0.03 Wed Dec 03 20:30:00 2003
 	- Added XML::Parser as a required pre-requisite module
 	- Added Italic format
-	- Removed $VERSION from Graph::Template::Base (Unneeded)
+	- Removed $VERSION from Excel::Template::Base (Unneeded)
         - No documentation or testing changes
 
 0.02 Sun Nov 30 17:00:00 2003
