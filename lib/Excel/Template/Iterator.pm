@@ -48,6 +48,11 @@ sub new
         return $self;
     }
 
+    unless (@{$self->{DATA}})
+    {
+        $self->{NO_PARAMS} = 1;
+    }
+
     $self->{MAX_INDEX} = $#{$self->{DATA}};
 
     return $self;
