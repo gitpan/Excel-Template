@@ -1,5 +1,8 @@
 Revision history for Perl module Excel::Template
 
+0.08 Fri Jan 30 14:00:00 2004
+	- Added Base to the params for XML::Parser to allow for entity includes
+
 0.07 Fri Jan 23 08:30:00 2004
 	- Fixed the MANIFEST to account for missing files
 

@@ -6,10 +6,11 @@ BEGIN {
     use Excel::Template::Base;
     use vars qw ($VERSION @ISA);
 
-    $VERSION  = 0.07;
+    $VERSION  = 0.08;
     @ISA      = qw( Excel::Template::Base );
 }
 
+use File::Basename;
 use XML::Parser;
 use IO::File;
 use IO::Scalar;
@@ -104,10 +105,13 @@ sub parse
 sub parse_xml
 {
     my $self = shift;
-    my ($filename) = @_;
+    my ($fname) = @_;
 
+    my ($filename, $dirname) = fileparse($fname);
+ 
     my @stack;
     my $parser = XML::Parser->new(
+        Base => $dirname,
         Handlers => {
             Start => sub {
                 shift;
@@ -163,8 +167,8 @@ sub parse_xml
     );
 
     {
-        my $fh = IO::File->new($filename)
-            || die "Cannot open '$filename' for reading: $!\n";
+        my $fh = IO::File->new($fname)
+            || die "Cannot open '$fname' for reading: $!\n";
 
         $parser->parse(do { local $/ = undef; <$fh> });
 
