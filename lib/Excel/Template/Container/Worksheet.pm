@@ -14,11 +14,7 @@ sub render
     my $self = shift;
     my ($context) = @_;
 
-    my $worksheet = $context->{XLS}->add_worksheet(
-        $context->get($self, 'NAME') || '',
-    );
-
-    $context->active_worksheet($worksheet);
+    $context->new_worksheet($self->{NAME});
 
     return $self->SUPER::render($context);
 }

@@ -1,5 +1,8 @@
 Revision history for Perl module Excel::Template
 
+0.09 Mon Feb 02 16:00:00 2004
+	- Fixed bug with multiple worksheets
+
 0.08 Fri Jan 30 14:00:00 2004
 	- Added Base to the params for XML::Parser to allow for entity includes
 

@@ -205,6 +205,20 @@ sub active_format
     $self->{ACTIVE_FORMAT};
 }
 
+sub new_worksheet
+{
+    my $self = shift;
+    my ($name) = @_;
+
+    $self->{ROW} = $self->{COL} = 0;
+
+    $self->active_worksheet(
+        $self->{XLS}->add_worksheet(
+            $name || '',
+        ),
+    );
+}
+
 sub active_worksheet
 {
     my $self = shift;
