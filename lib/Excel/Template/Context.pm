@@ -12,7 +12,7 @@ BEGIN {
 use Excel::Template::Format;
 
 # This is a helper object. It is not instantiated by the user, nor does it
-# represent an XML object. Rather, every container will use this object to
+# represent an XML node. Rather, every container will use this object to
 # maintain the context for its children.
 
 my %isAbsolute = map { $_ => ~~1 } qw(
@@ -26,13 +26,16 @@ sub new
     my $self = $class->SUPER::new(@_);
 
     $self->{ACTIVE_WORKSHEET} = undef;
-    $self->{ACTIVE_FORMAT}    = Excel::Template::Format->blank_format($self);
+    $self->{FORMAT_OBJECT}    = Excel::Template::Format->new;
+    $self->{ACTIVE_FORMAT}    = $self->{FORMAT_OBJECT}->blank_format($self);
     $self->{WORKSHEET_NAMES}  = undef;
+
+    $self->{__MARKS} = {};
 
     # Removed NAME_MAP until I figure out what the heck it's for
     for (qw( STACK PARAM_MAP ))
     {
-        next if defined $self->{$_} && UNIVERSAL::isa($self->{$_}, 'ARRAY');
+        next if defined $self->{$_} && ref $self->{$_} eq 'ARRAY';
         $self->{$_} = [];
     }
 
@@ -107,7 +110,7 @@ sub resolve
     #    2) A decimal number
 
 #GGG Convert this to use //x
-    my ($op, $val) = $obj_val =~ m!^\s*([\+\*\/\-])?\s*([\d.]*\d)\s*$!oi;
+    my ($op, $val) = $obj_val =~ m/^\s*([\+\*\/\-])?\s*([\d.]*\d)\s*$/oi;
 
     # Unless it's a relative value, we have what we came for.
     return $obj_val unless $op;
@@ -120,7 +123,7 @@ sub resolve
     return $prev_val unless defined $obj_val;
 
     # Prevent divide-by-zero issues.
-    return $val if $op eq '/' and $val == 0;
+    return $prev_val if $op eq '/' and $val == 0;
 
     my $new_val;
     for ($op)
@@ -237,9 +240,23 @@ sub new_worksheet
         $name = '';
     }
 
-    $self->active_worksheet(
+    return $self->active_worksheet(
         $self->{XLS}->add_worksheet( $name ),
     );
+}
+
+sub mark
+{
+    my $self = shift;
+
+    if ( @_ > 1 )
+    {
+        my %args = @_;
+
+        @{$self->{__MARKS}}{keys %args} = values %args;
+    }
+
+    return $self->{__MARKS}{$_[0]}
 }
 
 sub active_worksheet
@@ -283,6 +300,8 @@ sub get_last_reference
 
     return @{ $self->{REFERENCES}{$ref}[-1] };
 }
+
+sub format_object { $_[0]{FORMAT_OBJECT} }
 
 1;
 __END__
@@ -329,13 +348,15 @@ None
 
 =head2 add_reference
 
+=head2 format_object
+
 =head2 get
 
 =head2 get_all_references
 
 =head2 get_last_reference
 
-=head2 named_param
+=head2 mark
 
 =head2 new_worksheet
 

@@ -1,5 +1,16 @@
 Revision history for Perl distribution Excel::Template
 
+0.24 Thu Mar 10 11:00:00 2005
+    - Implemented the KEEP_LEADING_ZEROS node
+      - This wraps the keep_leading_zeros() worksheet method
+    - Improved code coverage with more and better tests
+      - Am now above 90% coverage.
+      - Fixed bug involving relative values.
+      - Fixed bug involving formats when multiple Excel-Template objects ran in
+        the same process.
+    - Improved POD linking
+      - Every module/node reference in POD should link to the appropriate POD
+
 0.23 Fri Feb 25 15:00:00 2005
     - Improved code coverage with more and better tests
     - Fixed POD bug with Devel::Cover results

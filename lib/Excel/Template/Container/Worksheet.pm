@@ -9,18 +9,23 @@ BEGIN {
     use Excel::Template::Container;
 }
 
+sub exit_scope  { $_[1]->active_worksheet( undef ) }
+
 sub render
 {
     my $self = shift;
     my ($context) = @_;
 
-    $context->new_worksheet( $self );
+    my $worksheet = $context->new_worksheet( $self );
 
     my $password = $context->get( $self, 'PROTECT' );
     if (defined $password)
     {
-        $context->active_worksheet->protect( $password );
+        $worksheet->protect( $password );
     }
+
+    $worksheet->keep_leading_zeros( 1 )
+        if $context->mark( 'keep_leading_zeros' );
 
     return $self->SUPER::render($context);
 }
@@ -58,6 +63,10 @@ If the attribute exists, it will mark the worksheet as being protected. Whatever
 value is set will be used as the password.
 
 This activates the HIDDEN and LOCKED nodes.
+
+=item * KEEP_LEADING_ZEROS
+
+This will change the behavior of the worksheet to preserve leading zeros.
 
 =back
 
