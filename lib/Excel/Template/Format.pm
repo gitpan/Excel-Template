@@ -12,7 +12,7 @@ use strict;
 {
     # %_Parameters is a hash with the key being the format name and the value
     # being the index/length of the format in the bit-vector.
-    my %_Parameters = (
+    my %_Formats = ( 
         bold   => [ 0, 1 ],
         italic => [ 1, 1 ],
         locked => [ 2, 1 ],
@@ -21,31 +21,31 @@ use strict;
         font_shadow    => [ 5, 1 ],
         font_strikeout => [ 6, 1 ],
     );
-
+ 
     sub _params_to_vec
     {
         my %params = @_;
-
+        $params{lc $_} = delete $params{$_} for keys %params;
+ 
         my $vec = '';
-
-        vec( $vec, $_Parameters{$_}[0], $_Parameters{$_}[1] ) = $params{$_} && 1
-            for grep { exists $_Parameters{$_} }
+        vec( $vec, $_Formats{$_}[0], $_Formats{$_}[1] ) = ($params{$_} && 1)  
+            for grep { exists $_Formats{$_} } 
                 map { lc } keys %params;
-
+ 
         $vec;
     }
-
+ 
     sub _vec_to_params
     {
         my ($vec) = @_;
-
+ 
         my %params;
-        while (my ($k, $v) = each %_Parameters)
+        while (my ($k, $v) = each %_Formats) 
         {
             next unless vec( $vec, $v->[0], $v->[1] );
             $params{$k} = 1;
         }
-
+ 
         %params;
     }
 }
