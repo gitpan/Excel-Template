@@ -17,6 +17,7 @@ BEGIN {
     'WORKSHEET' => 'Excel::Template::Container::Worksheet',
 
     'CELL'      => 'Excel::Template::Element::Cell',
+    'COLUMN'    => 'Excel::Template::Element::Column',
     'FORMULA'   => 'Excel::Template::Element::Formula',
     'VAR'       => 'Excel::Template::Element::Var',
 
@@ -46,6 +47,7 @@ BEGIN {
 %isBuildable = map { $_ => 1 } qw(
     BOLD
     CELL
+    COLUMN
     FORMAT
     FORMULA
     IF
