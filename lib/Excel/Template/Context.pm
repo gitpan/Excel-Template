@@ -40,6 +40,7 @@ sub _find_param_in_map
 {
     my $self = shift;
     my ($map, $param, $depth) = @_;
+    $param = uc $param;
     $depth ||= 0;
 
     my $val = undef;

@@ -1,7 +1,10 @@
 Revision history for Perl module Excel::Template
 
-0.10 Sun Feb 29 22:00:00 2004
-	- Added COLUMN, to set the width of a column or columns
+0.11 Wed Mar 17 16:00:00 2004
+	- Fixed bug introduced in 0.10 (Loops were not case-insensitive)
+
+0.10 Wed Mar 17 16:00:00 2004
+	- Parameters are now case-insensitive
 
 0.09 Mon Feb 02 16:00:00 2004
 	- Fixed bug with multiple worksheets

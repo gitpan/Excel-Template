@@ -6,7 +6,7 @@ BEGIN {
     use Excel::Template::Base;
     use vars qw ($VERSION @ISA);
 
-    $VERSION  = '0.10';
+    $VERSION  = '0.11';
     @ISA      = qw( Excel::Template::Base );
 }
 
@@ -62,8 +62,10 @@ sub param
 
     (@_ % 2)
         && die __PACKAGE__, "->param() : Odd number of parameters to param()\n";
-    my %x = @_;
-    @{$self->{PARAM_MAP}}{keys %x} = @x{keys %x};
+
+    my %params = @_;
+    $params{uc $_} = delete $params{$_} for keys %params;
+    @{$self->{PARAM_MAP}}{keys %params} = @params{keys %params};
 
     return 1;
 }
