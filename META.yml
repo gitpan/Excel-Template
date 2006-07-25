@@ -1,8 +1,94 @@
---- #YAML:1.0
+---
 name: Excel-Template
-version: 0.26
-author:
-
+version: !!perl/hash:Module::Build::Version
+  original: 0.27
+  version:
+    - 0
+    - 270
+author: []
 abstract: Excel::Template
 license: perl
-generated_by: Module::Build version 0.2612, without YAML.pm
+resources:
+  license: http://dev.perl.org/licenses/
+requires:
+  File::Basename: 0.01
+  IO::Scalar: 0.01
+  Spreadsheet::WriteExcel: 0.42
+  Spreadsheet::WriteExcel::Utility: 0.01
+  Test::More: 0.01
+  XML::Parser: 0.01
+  perl: 5.6.0
+build_requires:
+  File::Path: 0.01
+  File::Temp: 0.01
+  Test::Deep: 0.095
+  Test::Exception: 0.21
+  Test::More: 0.47
+provides:
+  Excel::Template:
+    file: lib/Excel/Template.pm
+    version: 0.27
+  Excel::Template::Base:
+    file: lib/Excel/Template/Base.pm
+  Excel::Template::Container:
+    file: lib/Excel/Template/Container.pm
+  Excel::Template::Container::Bold:
+    file: lib/Excel/Template/Container/Bold.pm
+  Excel::Template::Container::Conditional:
+    file: lib/Excel/Template/Container/Conditional.pm
+  Excel::Template::Container::Format:
+    file: lib/Excel/Template/Container/Format.pm
+  Excel::Template::Container::Hidden:
+    file: lib/Excel/Template/Container/Hidden.pm
+  Excel::Template::Container::Italic:
+    file: lib/Excel/Template/Container/Italic.pm
+  Excel::Template::Container::KeepLeadingZeros:
+    file: lib/Excel/Template/Container/KeepLeadingZeros.pm
+  Excel::Template::Container::Locked:
+    file: lib/Excel/Template/Container/Locked.pm
+  Excel::Template::Container::Loop:
+    file: lib/Excel/Template/Container/Loop.pm
+  Excel::Template::Container::Outline:
+    file: lib/Excel/Template/Container/Outline.pm
+  Excel::Template::Container::Row:
+    file: lib/Excel/Template/Container/Row.pm
+  Excel::Template::Container::Scope:
+    file: lib/Excel/Template/Container/Scope.pm
+  Excel::Template::Container::Shadow:
+    file: lib/Excel/Template/Container/Shadow.pm
+  Excel::Template::Container::Strikeout:
+    file: lib/Excel/Template/Container/Strikeout.pm
+  Excel::Template::Container::Workbook:
+    file: lib/Excel/Template/Container/Workbook.pm
+  Excel::Template::Container::Worksheet:
+    file: lib/Excel/Template/Container/Worksheet.pm
+  Excel::Template::Context:
+    file: lib/Excel/Template/Context.pm
+  Excel::Template::Element:
+    file: lib/Excel/Template/Element.pm
+  Excel::Template::Element::Backref:
+    file: lib/Excel/Template/Element/Backref.pm
+  Excel::Template::Element::Cell:
+    file: lib/Excel/Template/Element/Cell.pm
+  Excel::Template::Element::Formula:
+    file: lib/Excel/Template/Element/Formula.pm
+  Excel::Template::Element::FreezePanes:
+    file: lib/Excel/Template/Element/FreezePanes.pm
+  Excel::Template::Element::Image:
+    file: lib/Excel/Template/Element/Image.pm
+  Excel::Template::Element::Range:
+    file: lib/Excel/Template/Element/Range.pm
+  Excel::Template::Element::Var:
+    file: lib/Excel/Template/Element/Var.pm
+  Excel::Template::Factory:
+    file: lib/Excel/Template/Factory.pm
+  Excel::Template::Format:
+    file: lib/Excel/Template/Format.pm
+  Excel::Template::Iterator:
+    file: lib/Excel/Template/Iterator.pm
+  Excel::Template::TextObject:
+    file: lib/Excel/Template/TextObject.pm
+generated_by: Module::Build version 0.2804
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.2.html
+  version: 1.2
