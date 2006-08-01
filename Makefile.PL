@@ -2,22 +2,21 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-          'PL_FILES' => {},
-          'INSTALLDIRS' => 'site',
           'NAME' => 'Excel::Template',
-          'EXE_FILES' => [],
           'VERSION_FROM' => 'lib/Excel/Template.pm',
           'PREREQ_PM' => {
-                           'Test::Exception' => '0.21',
+                           'File::Basename' => '0.01',
+                           'File::Path' => '0.01',
+                           'File::Temp' => '0.01',
                            'IO::Scalar' => '0.01',
-                           'Test::More' => '0.47',
                            'Spreadsheet::WriteExcel' => '0.42',
                            'Spreadsheet::WriteExcel::Utility' => '0.01',
-                           'File::Temp' => '0.01',
-                           'File::Path' => '0.01',
-                           'File::Basename' => '0.01',
-                           'XML::Parser' => '0.01',
-                           'Test::Deep' => '0.095'
-                         }
+                           'Test::Deep' => '0.095',
+                           'Test::Exception' => '0.21',
+                           'Test::More' => '0.47',
+                           'XML::Parser' => '0.01'
+                         },
+          'INSTALLDIRS' => 'site',
+          'PL_FILES' => {}
         )
 ;
