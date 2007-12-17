@@ -1,6 +1,6 @@
 ---
 name: Excel-Template
-version: 0.30
+version: 0.31
 author: []
 abstract: Excel::Template
 license: perl
@@ -23,7 +23,7 @@ build_requires:
 provides:
   Excel::Template:
     file: lib/Excel/Template.pm
-    version: 0.30
+    version: 0.31
   Excel::Template::Base:
     file: lib/Excel/Template/Base.pm
   Excel::Template::Container:
