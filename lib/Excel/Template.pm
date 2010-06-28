@@ -6,7 +6,7 @@ BEGIN {
     use Excel::Template::Base;
     use vars qw ($VERSION @ISA);
 
-    $VERSION  = '0.31';
+    $VERSION  = '0.31_1';
     @ISA      = qw( Excel::Template::Base );
 }
 
@@ -450,13 +450,25 @@ None, that I know of.
 
 This is production quality software, used in several production web applications.
 
-=head1 AUTHOR
+=head1 MAINTAINERS
 
-    Rob Kinyon (rob.kinyon@gmail.com)
+    Jens Gassmann <jegade@cpan.org>
+    Robert Bohne <rbo@cpan.org>
+    Rob Kinyon <rkinyon@cpan.org>
 
 =head1 CONTRIBUTORS
 
 There is a mailing list at http://groups.google.com/group/ExcelTemplate or exceltemplate@googlegroups.com
+
+=head2 Robert Bohne <rbo@cpan.org>
+
+=over 4
+
+=item * Swichting to Module::Install
+
+=item * Add autofilter to worksheet
+
+=back
 
 =head2 Robert Graff
 
@@ -465,6 +477,14 @@ There is a mailing list at http://groups.google.com/group/ExcelTemplate or excel
 =item * Finishing formats
 
 =item * Fixing several bugs in worksheet naming
+
+=back
+
+=head2 Jens Gassmann
+
+=over 4
+
+=item * Add hide_gridlines to worksheet
 
 =back
 
