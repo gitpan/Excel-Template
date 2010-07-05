@@ -40,4 +40,4 @@ resources:
     type: git
     url: git://git.shadowcat.co.uk/p5sagit/Excel-Template.git
     web: http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=p5sagit/Excel-Template.git;a=summary
-version: 0.31_1
+version: 0.32
