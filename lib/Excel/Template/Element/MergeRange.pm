@@ -4,9 +4,9 @@ use strict;
 
 BEGIN {
     use vars qw(@ISA);
-    @ISA = qw(Excel::Template::Element);
+    @ISA = qw(Excel::Template::Element::Cell);
 
-    use Excel::Template::Element;
+    use Excel::Template::Element::Cell;
     use Excel::Template::Element::Range;
 }
 
@@ -36,6 +36,9 @@ sub render {
         $values{$k} = $context->resolve( $self, $k );
     }
 
+    # force is_merged on here to differentiate the formats
+    $values{is_merged} = 1;
+
     my $format = $context->format_object->copy(
         $context, $old_format, %values,
     );
@@ -43,7 +46,7 @@ sub render {
 
     $context->active_worksheet->merge_range(
         $range,
-        $context->get($self, 'TEXT'),
+        $self->_get_text($context),
         $format,
     );
 
@@ -83,8 +86,25 @@ None
 
   <cell ref="foo"/>
   <cell ref="foo"/>
-  <cell ref="foo"/>    
+  <cell ref="foo"/>
   <merge_range ref="foo">Text to insert into merged range</merge_range>
+
+Or a cross rows:
+
+  <row>
+    <cell ref="foo"/>
+    <cell ref="foo"/>
+    <cell ref="foo"/>
+  </row>
+  <row>
+    <cell ref="foo"/>
+    <cell ref="foo"/>
+    <cell ref="foo"/>
+    <format>
+      <merge_range ref="foo">Text to insert into merged range</merge_range>
+    </format>
+  </row>
+
 
 =head1 AUTHOR
 
